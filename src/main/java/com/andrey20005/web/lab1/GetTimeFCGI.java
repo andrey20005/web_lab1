@@ -8,7 +8,7 @@ import java.time.LocalTime;
 public class GetTimeFCGI {
     public static void run() {
         PrintStream so = System.out;
-        while(new FCGIInterface().FCGIaccept()>= 0) {
+        while (new FCGIInterface().FCGIaccept()>= 0) {
             so.print("новый запрос\n\t");
             so.println(System.getProperties().getProperty("QUERY_STRING").toString());
             System.out.println("Content-type: text\n");

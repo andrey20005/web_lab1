@@ -14,9 +14,9 @@ public class Point {
         this.y = y;
     }
 
-    private static Pattern argsPattern = Pattern.compile("^r=([-\\d.]*)&x=([-\\d.]*)&y=([-\\d.]*)");
+    private static Pattern argsPattern = Pattern.compile("^r=([-\\d.]+)&x=([-\\d.]+)&y=([-\\d.]+)");
 
-    public Point parse(String prompt) throws URLArgsExeption {
+    public static Point parse(String prompt) throws URLArgsExeption, NumberFormatException {
         Matcher matcher = argsPattern.matcher(prompt);
         if (matcher.find()) {
             double r = Double.parseDouble(matcher.group(1));
