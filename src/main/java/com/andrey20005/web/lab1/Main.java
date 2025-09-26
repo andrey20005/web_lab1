@@ -11,7 +11,7 @@ public class Main {
         AndArea quarterCircle = new AndArea(new ArrayList<>());
         quarterCircle.addArea(new AboveLine(0, 0, 1, 0));
         quarterCircle.addArea(new AboveLine(0, 0, 0, 1));
-        quarterCircle.addArea(new Сircle(1, 0, 0));
+        quarterCircle.addArea(new Circle(1, 0, 0));
         AndArea lowerTriangle = new AndArea(new ArrayList<>());
         lowerTriangle.addArea(new AboveLine(0, 0, 1, 0));
         lowerTriangle.addArea(new AboveLine(0, 0, 0, -1));

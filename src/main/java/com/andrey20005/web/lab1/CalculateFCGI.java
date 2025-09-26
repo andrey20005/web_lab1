@@ -7,7 +7,7 @@ import java.io.PrintStream;
 import java.time.LocalTime;
 
 public class CalculateFCGI {
-    private static String htmlAns = """
+    private static final String htmlAns = """
             <div class="output">
                 <p class="output_x">%f</p>
                 <p class="output_y">%f</p>
@@ -17,7 +17,7 @@ public class CalculateFCGI {
                 <p class="exec_time">%s</p>
             </div>
             """;
-    private static String htmlErr = """
+    private static final String htmlErr = """
             <div class="output">
                 <p class="output_err">%s</p>
                 <p class="now_time">%s</p>
