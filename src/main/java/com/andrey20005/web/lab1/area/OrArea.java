@@ -4,13 +4,7 @@ import com.andrey20005.web.lab1.Point;
 
 import java.util.Collection;
 
-public class OrArea implements Area {
-    private final Collection<Area> areas;
-
-    public OrArea(Collection<Area> areas) {
-        this.areas = areas;
-    }
-
+public record OrArea(Collection<Area> areas) implements Area {
     public void addArea(Area area) {
         areas.add(area);
     }

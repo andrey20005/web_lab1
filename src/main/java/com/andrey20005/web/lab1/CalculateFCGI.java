@@ -7,23 +7,40 @@ import java.io.PrintStream;
 import java.time.LocalTime;
 
 public class CalculateFCGI {
-    private static final String htmlAns = """
-            <div class="output">
-                <p class="output_x">%f</p>
-                <p class="output_y">%f</p>
-                <p class="output_r">%f</p>
-                <p class="output_res">%b</p>
-                <p class="now_time">%s</p>
-                <p class="exec_time">%s</p>
-            </div>
-            """;
-    private static final String htmlErr = """
-            <div class="output">
-                <p class="output_err">%s</p>
-                <p class="now_time">%s</p>
-                <p class="exec_time">%s</p>
-            </div>
-            """;
+//    private static final String htmlAns = """
+//            <div class="output">
+//                <p class="output_x">%f</p>
+//                <p class="output_y">%f</p>
+//                <p class="output_r">%f</p>
+//                <p class="output_res">%b</p>
+//                <p class="now_time">%s</p>
+//                <p class="exec_time">%s</p>
+//            </div>
+//            """;
+//    private static final String htmlErr = """
+//            <div class="output">
+//                <p class="output_err">%s</p>
+//                <p class="now_time">%s</p>
+//                <p class="exec_time">%s</p>
+//            </div>
+//            """;
+private static final String jsonAns = """
+        {
+            "r" : %f
+            "x" : %f,
+            "y" : %f,
+            "res" : %b,
+            "now_time" : "%s",
+            "exec_time" : %d
+        }
+        """;
+    private static final String jsonErr = """
+        {
+            "err" : %s,
+            "now_time" : "%s",
+            "exec_time" : %d
+        }
+        """;
 
     public static void run(Area area) {
         PrintStream so = System.out;
@@ -33,19 +50,25 @@ public class CalculateFCGI {
             so.println(System.getProperties().getProperty("QUERY_STRING"));
             try {
                 Point point = Point.parse(System.getProperties().getProperty("QUERY_STRING"));
-                System.out.println("Content-type: html\n");
+                System.out.println("Content-type: json\n");
                 System.out.printf(
-                        htmlAns,
+                        jsonAns,
                         point.r,
                         point.x,
                         point.y,
                         area.hit(point),
-                        System.nanoTime() - startTime,
-                        LocalTime.now()
+                        LocalTime.now(),
+                        System.nanoTime() - startTime
                 );
             } catch (Exception e) {
-                System.out.println("Content-type: html\n");
-                System.out.printf(htmlErr, e.getMessage(), System.nanoTime() - startTime, LocalTime.now());
+                System.out.println("Content-type: json\n");
+                so.printf(jsonErr, e.getMessage(), LocalTime.now(), System.nanoTime() - startTime);
+                System.out.printf(
+                        jsonErr,
+                        e.getMessage(),
+                        LocalTime.now(),
+                        System.nanoTime() - startTime
+                );
             }
         }
     }

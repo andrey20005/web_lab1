@@ -4,12 +4,7 @@ import com.andrey20005.web.lab1.Point;
 
 import java.util.Collection;
 
-public class AndArea implements Area {
-    private final Collection<Area> areas;
-
-    public AndArea(Collection<Area> areas) {
-        this.areas = areas;
-    }
+public record AndArea(Collection<Area> areas) implements Area {
 
     public void addArea(Area area) {
         areas.add(area);

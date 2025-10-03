@@ -5,7 +5,6 @@ import com.andrey20005.web.lab1.area.*;
 import java.util.ArrayList;
 
 public class Main {
-
     public static void main(String[] args) {
         System.out.println("начало работы");
         AndArea quarterCircle = new AndArea(new ArrayList<>());
