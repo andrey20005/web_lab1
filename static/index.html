@@ -10,17 +10,74 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello world!!! 15</h1>
-    <button id="get_time">get time</button>
-    <p>time: </p><p id="clock"></p>
-    <div class="output">
-        <p class="x">-0.39</p>
-        <p class="y">4.6</p>
-        <p class="r">6.1</p>
-        <p class="res">True</p>
-        <p class="err">Incorrect request</p>
-        <p class="now_time">15:45</p>
-        <p class="exec_time">0.0167</p>
-    </div>
+<header>
+    <p>
+        Захарченко
+        Андрей
+        Сергеевич
+    </p>
+    <p>
+        P3214
+    </p>
+    <p>
+        Вариант: 465951
+    </p>
+</header>
+<table>
+    <tr>
+        <td><img src="img.svg" width="300"></td>
+        <td>
+            <form id="calculate_form">
+                <!-- Группа для координаты X -->
+                <fieldset>
+                    <legend>Выберите значение X:</legend>
+                    <div class="radio-group">
+                        <label><input type="radio" name="X" value="-4"> -4</label>
+                        <label><input type="radio" name="X" value="-3"> -3</label>
+                        <label><input type="radio" name="X" value="-2"> -2</label>
+                        <label><input type="radio" name="X" value="-1"> -1</label>
+                        <label><input type="radio" name="X" value="0" checked> 0</label>
+                        <label><input type="radio" name="X" value="1"> 1</label>
+                        <label><input type="radio" name="X" value="2"> 2</label>
+                        <label><input type="radio" name="X" value="3"> 3</label>
+                        <label><input type="radio" name="X" value="4"> 4</label>
+                    </div>
+                </fieldset>
+
+                <!-- Поле для координаты Y -->
+                <div class="form-group">
+                    <label for="y_input">Введите значение Y (-3 до 3):</label>
+                    <input type="text" id="y_input" name="Y" required
+                           pattern="-?(?:[0-2](?:\.[0-9]+)?|3(?:\.0+)?)"
+                           title="Число от -3 до 3">
+                </div>
+
+                <!-- Группа для параметра R -->
+                <fieldset>
+                    <legend>Выберите значение R:</legend>
+                    <div class="radio-group">
+                        <label><input type="checkbox" name="R" value="1"> 1</label>
+                        <label><input type="checkbox" name="R" value="1.5"> 1.5</label>
+                        <label><input type="checkbox" name="R" value="2" checked> 2</label>
+                        <label><input type="checkbox" name="R" value="2.5"> 2.5</label>
+                        <label><input type="checkbox" name="R" value="3"> 3</label>
+                    </div>
+                </fieldset>
+                <button type="submit">Получить результат</button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <table id="res_table">
+            <tr>
+                <th>time</th>
+                <th>R</th>
+                <th>X</th>
+                <th>Y</th>
+                <th>Res/err</th>
+            </tr>
+        </table>
+    </tr>
+</table>
 </body>
 </html>

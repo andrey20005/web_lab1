@@ -26,7 +26,7 @@ public class CalculateFCGI {
 //            """;
 private static final String jsonAns = """
         {
-            "r" : %f
+            "r" : %f,
             "x" : %f,
             "y" : %f,
             "res" : %b,
