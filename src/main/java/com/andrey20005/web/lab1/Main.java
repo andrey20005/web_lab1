@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("начало работы");
         AndArea quarterCircle = new AndArea(new ArrayList<>());
         quarterCircle.addArea(new AboveLine(0, 0, 1, 0));
         quarterCircle.addArea(new AboveLine(0, 0, 0, 1));
@@ -24,6 +23,13 @@ public class Main {
         area.addArea(quarterCircle);
         area.addArea(lowerTriangle);
         area.addArea(rectangle);
-        CalculateFCGI.run(area);
+        System.out.println("начало работы");
+        var cons = System.out;
+        try {
+            CalculateFCGI.run(area);
+        } catch (Exception|Error e) {
+            e.printStackTrace(cons);
+        }
+        cons.println("end");
     }
 }

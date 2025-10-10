@@ -7,68 +7,61 @@ import java.io.PrintStream;
 import java.time.LocalTime;
 
 public class CalculateFCGI {
-//    private static final String htmlAns = """
-//            <div class="output">
-//                <p class="output_x">%f</p>
-//                <p class="output_y">%f</p>
-//                <p class="output_r">%f</p>
-//                <p class="output_res">%b</p>
-//                <p class="now_time">%s</p>
-//                <p class="exec_time">%s</p>
-//            </div>
-//            """;
-//    private static final String htmlErr = """
-//            <div class="output">
-//                <p class="output_err">%s</p>
-//                <p class="now_time">%s</p>
-//                <p class="exec_time">%s</p>
-//            </div>
-//            """;
 private static final String jsonAns = """
+        Content-type: json
+        
         {
-            "r" : %f,
-            "x" : %f,
-            "y" : %f,
+            "r" : %.7f,
+            "x" : %.7f,
+            "y" : %.7f,
             "res" : %b,
             "now_time" : "%s",
             "exec_time" : %d
         }
         """;
     private static final String jsonErr = """
+        Content-type: json
+        
         {
-            "err" : %s,
             "now_time" : "%s",
             "exec_time" : %d
         }
         """;
 
     public static void run(Area area) {
-        PrintStream so = System.out;
-        while (new FCGIInterface().FCGIaccept()>= 0) {
-            long startTime = System.nanoTime();
-            so.print("новый запрос\n\t");
-            so.println(System.getProperties().getProperty("QUERY_STRING"));
-            try {
-                Point point = Point.parse(System.getProperties().getProperty("QUERY_STRING"));
-                System.out.println("Content-type: json\n");
-                System.out.printf(
-                        jsonAns,
-                        point.r,
-                        point.x,
-                        point.y,
-                        area.hit(point),
-                        LocalTime.now(),
-                        System.nanoTime() - startTime
-                );
-            } catch (Exception e) {
-                System.out.println("Content-type: json\n");
-                so.printf(jsonErr, e.getMessage(), LocalTime.now(), System.nanoTime() - startTime);
-                System.out.printf(
-                        jsonErr,
-                        e.getMessage(),
-                        LocalTime.now(),
-                        System.nanoTime() - startTime
-                );
+        PrintStream console = System.out;
+        FCGIInterface fcgi = new FCGIInterface();
+        while (true) {
+            console.println("ждем подключение");
+            int acceptResult = fcgi.FCGIaccept();
+            if (acceptResult >= 0) {
+                console.print("новый запрос\n\t");
+                long startTime = System.nanoTime();
+                try {
+                    Point point = Point.parse(System.getProperties().getProperty("QUERY_STRING"));
+                    String res = String.format(
+                            java.util.Locale.US,
+                            jsonAns,
+                            point.r,
+                            point.x,
+                            point.y,
+                            area.hit(point),
+                            LocalTime.now(),
+                            System.nanoTime() - startTime
+                    );
+                    System.out.print(res);
+                    console.println(res);
+                } catch (URLArgsExeption e) {
+                    console.printf(java.util.Locale.US, jsonErr, LocalTime.now(), System.nanoTime() - startTime);
+                    System.out.printf(
+                            java.util.Locale.US,
+                            jsonErr,
+                            LocalTime.now(),
+                            System.nanoTime() - startTime
+                    );
+                } catch (Exception e) {
+                    e.printStackTrace(console);
+                }
             }
         }
     }

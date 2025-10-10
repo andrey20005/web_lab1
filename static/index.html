@@ -7,30 +7,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>my fcgi</title>
     <script defer src="index.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
 <header>
-    <p>
-        Захарченко
-        Андрей
-        Сергеевич
-    </p>
-    <p>
-        P3214
-    </p>
-    <p>
-        Вариант: 465951
-    </p>
+    <table id="header-table">
+        <tr>
+            <td><p>Захарченко<br>Андрей<br>Сергеевич</p></td>
+            <td><p>Группа: <br>P3214</p></td>
+            <td><p>Вариант: <br>465951</p></td>
+        </tr>
+    </table>
 </header>
-<table>
+<table id="main_table" class="layout-table">
     <tr>
         <td><img src="img.svg" width="300"></td>
         <td>
             <form id="calculate_form">
                 <!-- Группа для координаты X -->
                 <fieldset>
-                    <legend>Выберите значение X:</legend>
+                    <legend>X:</legend>
                     <div class="radio-group">
                         <label><input type="radio" name="X" value="-4"> -4</label>
                         <label><input type="radio" name="X" value="-3"> -3</label>
@@ -45,16 +41,16 @@
                 </fieldset>
 
                 <!-- Поле для координаты Y -->
-                <div class="form-group">
-                    <label for="y_input">Введите значение Y (-3 до 3):</label>
+                <fieldset>
+                    <legend>Y:</legend>
                     <input type="text" id="y_input" name="Y" required
                            pattern="-?(?:[0-2](?:\.[0-9]+)?|3(?:\.0+)?)"
                            title="Число от -3 до 3">
-                </div>
+                </fieldset>
 
                 <!-- Группа для параметра R -->
                 <fieldset>
-                    <legend>Выберите значение R:</legend>
+                    <legend>R:</legend>
                     <div class="radio-group">
                         <label><input type="checkbox" name="R" value="1"> 1</label>
                         <label><input type="checkbox" name="R" value="1.5"> 1.5</label>
@@ -68,15 +64,17 @@
         </td>
     </tr>
     <tr>
-        <table id="res_table">
-            <tr>
-                <th>time</th>
-                <th>R</th>
-                <th>X</th>
-                <th>Y</th>
-                <th>Res/err</th>
-            </tr>
-        </table>
+        <td colspan="2">
+            <table id="res_table">
+                <tr class="table-header">
+                    <th>time</th>
+                    <th>R</th>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>Res/err</th>
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
 </body>

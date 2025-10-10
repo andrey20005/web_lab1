@@ -12,6 +12,7 @@ services:
     image: "httpd:2.4.62"
     ports:
       - "8080:80"
+      - "80:80"
     volumes:
       - "./httpd_docker.conf:/usr/local/apache2/conf/httpd.conf"
       - "./static:/var/www"
