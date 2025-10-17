@@ -8,18 +8,20 @@ import java.time.LocalTime;
 
 public class CalculateFCGI {
 private static final String jsonAns = """
+        Status: 200 OK
         Content-type: json
         
         {
-            "r" : %.7f,
-            "x" : %.7f,
-            "y" : %.7f,
+            "r" : "%s",
+            "x" : "%s",
+            "y" : "%s",
             "res" : %b,
             "now_time" : "%s",
             "exec_time" : %d
         }
         """;
     private static final String jsonErr = """
+        Status: 400 %s
         Content-type: json
         
         {
@@ -35,9 +37,10 @@ private static final String jsonAns = """
             console.println("ждем подключение");
             int acceptResult = fcgi.FCGIaccept();
             if (acceptResult >= 0) {
-                console.print("новый запрос\n\t");
+                console.print("новый запрос\n");
                 long startTime = System.nanoTime();
                 try {
+                    console.println(System.getProperties().getProperty("QUERY_STRING"));
                     Point point = Point.parse(System.getProperties().getProperty("QUERY_STRING"));
                     String res = String.format(
                             java.util.Locale.US,
@@ -52,13 +55,15 @@ private static final String jsonAns = """
                     System.out.print(res);
                     console.println(res);
                 } catch (URLArgsExeption e) {
-                    console.printf(java.util.Locale.US, jsonErr, LocalTime.now(), System.nanoTime() - startTime);
-                    System.out.printf(
+                    String res = String.format(
                             java.util.Locale.US,
                             jsonErr,
+                            e.getMessage(),
                             LocalTime.now(),
                             System.nanoTime() - startTime
                     );
+                    console.println(res);
+                    System.out.println(res);
                 } catch (Exception e) {
                     e.printStackTrace(console);
                 }

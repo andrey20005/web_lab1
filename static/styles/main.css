@@ -98,6 +98,9 @@ button:hover {
     border: 1px solid #333;
     padding: 8px;
     text-align: center;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    max-width: 300px;
 }
 
 .table-header {
@@ -110,10 +113,9 @@ button:hover {
     background-color: #2a2a2a;
 }
 
-img {
+svg {
     border: 2px solid #333;
     border-radius: 10px;
-    display: block;
 }
 
 body {
