@@ -23,19 +23,23 @@ public class Point {
             BigDecimal r = new BigDecimal(matcher.group(1));
             BigDecimal x = new BigDecimal(matcher.group(2));
             BigDecimal y = new BigDecimal(matcher.group(3));
-            if (
-                    x.compareTo(new BigDecimal(-4)) < 0 ||
-                    x.compareTo(new BigDecimal(4)) > 0 ||
-                    y.compareTo(new BigDecimal(-3)) < 0 ||
-                    y.compareTo(new BigDecimal(3)) > 0 ||
-                    r.compareTo(new BigDecimal(1)) < 0 ||
-                    r.compareTo(new BigDecimal(3)) > 0
-            ) {
-                throw new URLArgsExeption("Args out of range");
-            }
+            checkArgs(r, x, y);
             return new Point(r, x, y);
         } else {
             throw new URLArgsExeption("Args not find");
+        }
+    }
+
+    private static void checkArgs(BigDecimal r, BigDecimal x, BigDecimal y) throws URLArgsExeption {
+        if (
+                x.compareTo(new BigDecimal(-4)) < 0 ||
+                x.compareTo(new BigDecimal(4)) > 0 ||
+                y.compareTo(new BigDecimal(-3)) < 0 ||
+                y.compareTo(new BigDecimal(3)) > 0 ||
+                r.compareTo(new BigDecimal(1)) < 0 ||
+                r.compareTo(new BigDecimal(3)) > 0
+        ) {
+            throw new URLArgsExeption("Args out of range");
         }
     }
 }

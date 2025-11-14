@@ -13,6 +13,7 @@ services:
     ports:
       - "8080:80"
       - "80:80"
+      - "1337:1337"
     volumes:
       - "./httpd_docker.conf:/usr/local/apache2/conf/httpd.conf"
       - "./static:/var/www"
