@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Area area = getArea();
-        FileLogger.init("web1.log");
+        FileLogger.init(args[0]);
         PrintLogger.info("начало работы");
         CalculateFCGI.run(area);
     }
